@@ -46,17 +46,9 @@
       color: #800020;
     }
 
-    .product-card button {
-      background-color: #800020;
-      color: white;
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .product-card button:hover {
-      background-color: #a3002a;
+    .price {
+      color: #059669;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -70,22 +62,23 @@
   </section>
 
   <section id="products" class="products">
-    <!-- منتجات حقيقية يمكن إضافتها هنا لاحقاً -->
-    <div class="product-card">
-      <h3>اسم المنتج</h3>
-      <p>وصف مختصر للمنتج.</p>
-      <button>أضف إلى السلة</button>
-    </div>
-    <div class="product-card">
-      <h3>اسم المنتج</h3>
-      <p>وصف مختصر للمنتج.</p>
-      <button>أضف إلى السلة</button>
-    </div>
-    <div class="product-card">
-      <h3>اسم المنتج</h3>
-      <p>وصف مختصر للمنتج.</p>
-      <button>أضف إلى السلة</button>
-    </div>
+    {% for product in products %}
+      <div class="product-card">
+        <h3>{{ product.name }}</h3>
+        <p>{{ product.description|default:"لا يوجد وصف." }}</p>
+        <p class="price">السعر: {{ product.price }} ريال</p>
+        <p>
+          {% if product.available %}
+            <span style="color:green;">متوفر</span>
+          {% else %}
+            <span style="color:red;">غير متوفر</span>
+          {% endif %}
+        </p>
+        <p style="font-size: 0.75rem;">تاريخ الإضافة: {{ product.created_at|date:"Y/m/d" }}</p>
+      </div>
+    {% empty %}
+      <p style="text-align: center; width: 100%;">لا توجد منتجات حالياً.</p>
+    {% endfor %}
   </section>
 
   <section id="contact" style="padding: 2rem; background-color: #f0f0f0; text-align: center;">
@@ -94,15 +87,6 @@
   </section>
 
   {% include 'footer.html' %}
-
-  <script>
-    // مثال بسيط لتفاعل الزر
-    document.querySelectorAll('.product-card button').forEach(btn => {
-      btn.addEventListener('click', () => {
-        alert("تمت إضافة المنتج إلى السلة!");
-      });
-    });
-  </script>
 
 </body>
 </html>
