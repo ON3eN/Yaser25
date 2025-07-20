@@ -11,7 +11,7 @@ def home(request):
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='home'),  # الصفحة الرئيسية
-    path('store/', include('store.urls')),
+    path('', include('store.urls')),
     path('order/', include('order.urls')),
     path('account/', include('account.urls')),
 ]
