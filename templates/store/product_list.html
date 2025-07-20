@@ -1,0 +1,93 @@
+<!-- C:\Users\احمد\Yaser25\templates\store\product_list.html -->
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>قائمة المنتجات</title>
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background-color: #f9fafb;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 3rem auto;
+      padding: 1rem;
+    }
+
+    h1 {
+      text-align: center;
+      color: #0f172a;
+      margin-bottom: 2rem;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .product-card {
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.07);
+      padding: 1rem;
+      transition: transform 0.3s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .product-card h2 {
+      margin: 0 0 0.5rem;
+      font-size: 1.2rem;
+      color: #1e293b;
+    }
+
+    .product-card p {
+      margin: 0.3rem 0;
+      color: #475569;
+    }
+
+    .price {
+      color: #059669;
+      font-weight: bold;
+    }
+
+    .availability {
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>قائمة المنتجات</h1>
+    <div class="product-grid">
+      {% for product in products %}
+      <div class="product-card">
+        <h2>{{ product.name }}</h2>
+        <p>{{ product.description|default:"لا يوجد وصف." }}</p>
+        <p class="price">السعر: {{ product.price }} ريال</p>
+        <p class="availability">
+          {% if product.available %}
+            <span style="color:green;">متوفر</span>
+          {% else %}
+            <span style="color:red;">غير متوفر</span>
+          {% endif %}
+        </p>
+        <p>تاريخ الإضافة: {{ product.created_at|date:"Y/m/d H:i" }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <script>
+    console.log("تم تحميل قائمة المنتجات بنجاح.");
+  </script>
+</body>
+</html>
